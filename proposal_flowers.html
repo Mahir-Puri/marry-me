@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magical Proposal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            background: linear-gradient(to bottom, #0a0a2e 0%, #16213e 50%, #1a1a3e 100%);
+            font-family: 'Georgia', serif;
+        }
+
+        .scene {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .ground {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(to bottom, #1a4d2e 0%, #0d2818 100%);
+        }
+
+        .flower {
+            position: absolute;
+            bottom: 0;
+            animation: grow 2s ease-out forwards, glow 3s infinite;
+        }
+
+        @keyframes grow {
+            from {
+                transform: translateY(100%) scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 5px currentColor) drop-shadow(0 0 15px currentColor);
+            }
+            50% {
+                filter: drop-shadow(0 0 20px currentColor) drop-shadow(0 0 30px currentColor);
+            }
+        }
+
+        .flower-stem {
+            width: 3px;
+            height: 80px;
+            background: linear-gradient(to bottom, #2d5016 0%, #1a3010 100%);
+            margin: 0 auto;
+        }
+
+        .flower-head {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            margin: -15px auto 0;
+        }
+
+        .petal {
+            position: absolute;
+            width: 12px;
+            height: 20px;
+            border-radius: 50% 50% 50% 0;
+            transform-origin: bottom center;
+        }
+
+        .petal:nth-child(1) { transform: rotate(0deg) translateY(-10px); }
+        .petal:nth-child(2) { transform: rotate(72deg) translateY(-10px); }
+        .petal:nth-child(3) { transform: rotate(144deg) translateY(-10px); }
+        .petal:nth-child(4) { transform: rotate(216deg) translateY(-10px); }
+        .petal:nth-child(5) { transform: rotate(288deg) translateY(-10px); }
+
+        .flower-center {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px #ffd700;
+        }
+
+        .couple {
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: fadeIn 1s ease-in 3s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .person {
+            display: inline-block;
+            margin: 0 20px;
+            text-align: center;
+        }
+
+        .head {
+            width: 40px;
+            height: 40px;
+            background: #ffdbac;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            position: relative;
+            animation: gentle-sway 3s ease-in-out infinite;
+        }
+
+        @keyframes gentle-sway {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        .guy .head::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 5px;
+            width: 30px;
+            height: 15px;
+            background: #3d2817;
+            border-radius: 50% 50% 0 0;
+        }
+
+        .girl .head::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 0;
+            width: 40px;
+            height: 25px;
+            background: #4a2511;
+            border-radius: 50%;
+        }
+
+        .body {
+            width: 50px;
+            height: 60px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .guy .body {
+            background: linear-gradient(to bottom, #1e3a8a 0%, #1e40af 100%);
+            border-radius: 10px 10px 20px 20px;
+        }
+
+        .girl .body {
+            width: 70px;
+            height: 80px;
+            background: linear-gradient(to bottom, #ec4899 0%, #db2777 100%);
+            border-radius: 50% 50% 60% 60%;
+        }
+
+        .guy.kneeling {
+            animation: kneel 2s ease-in-out 4s forwards;
+        }
+
+        @keyframes kneel {
+            to {
+                transform: translateY(20px) scale(0.9);
+            }
+        }
+
+        .ring {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #ffd700;
+            border-radius: 50%;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: showRing 1s ease-in 6s forwards, ringGlow 2s infinite 6s;
+        }
+
+        @keyframes showRing {
+            to { opacity: 1; }
+        }
+
+        @keyframes ringGlow {
+            0%, 100% {
+                box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
+            }
+            50% {
+                box-shadow: 0 0 20px #ffd700, 0 0 40px #ffd700, 0 0 60px #ffd700;
+            }
+        }
+
+        .ring::before {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ff1493;
+            border-radius: 50%;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px #ff1493;
+        }
+
+        .message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            font-size: 48px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            opacity: 0;
+            animation: showMessage 2s ease-in 7s forwards;
+        }
+
+        @keyframes showMessage {
+            to { opacity: 1; }
+        }
+
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff69b4;
+            font-size: 30px;
+            animation: floatUp 5s ease-in infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(0);
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) scale(1.5) rotate(360deg);
+            }
+        }
+
+        .moon {
+            position: absolute;
+            top: 10%;
+            right: 15%;
+            width: 80px;
+            height: 80px;
+            background: #ffd700;
+            border-radius: 50%;
+            box-shadow: 0 0 40px #ffd700, 0 0 80px rgba(255, 215, 0, 0.5);
+            animation: moonGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes moonGlow {
+            0%, 100% {
+                box-shadow: 0 0 40px #ffd700, 0 0 80px rgba(255, 215, 0, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 60px #ffd700, 0 0 120px rgba(255, 215, 0, 0.8);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scene">
+        <div class="moon"></div>
+        <div class="stars" id="stars"></div>
+        <div class="hearts" id="hearts"></div>
+        <div class="ground" id="ground"></div>
+        
+        <div class="couple">
+            <div class="person guy kneeling">
+                <div class="head"></div>
+                <div class="body">
+                    <div class="ring"></div>
+                </div>
+            </div>
+            <div class="person girl">
+                <div class="head"></div>
+                <div class="body"></div>
+            </div>
+        </div>
+
+        <div class="message">Will You Marry Me? 💍</div>
+    </div>
+
+    <script>
+        // Create stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 70 + '%';
+            star.style.width = star.style.height = Math.random() * 3 + 1 + 'px';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // Create flowers
+        const colors = ['#ff1493', '#ff69b4', '#ff6b9d', '#c71585', '#db7093', '#ffc0cb', '#ffb6c1'];
+        const ground = document.getElementById('ground');
+        
+        for (let i = 0; i < 50; i++) {
+            setTimeout(() => {
+                const flower = document.createElement('div');
+                flower.className = 'flower';
+                flower.style.left = Math.random() * 100 + '%';
+                flower.style.animationDelay = Math.random() * 2 + 's';
+                
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                flower.innerHTML = `
+                    <div class="flower-head">
+                        <div class="petal" style="background: ${color};"></div>
+                        <div class="petal" style="background: ${color};"></div>
+                        <div class="petal" style="background: ${color};"></div>
+                        <div class="petal" style="background: ${color};"></div>
+                        <div class="petal" style="background: ${color};"></div>
+                        <div class="flower-center"></div>
+                    </div>
+                    <div class="flower-stem"></div>
+                `;
+                
+                ground.appendChild(flower);
+            }, i * 100);
+        }
+
+        // Create floating hearts
+        const heartsContainer = document.getElementById('hearts');
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = '♥';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.bottom = '15%';
+            heart.style.animationDelay = '0s';
+            heartsContainer.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 5000);
+        }, 800);
+    </script>
+</body>
+</html>
